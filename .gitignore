@@ -36,3 +36,5 @@ po/gen-pot
 *.rej
 *.pem
 ui/pages/help/*/*.html
+.project
+.pydevproject

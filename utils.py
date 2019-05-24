@@ -267,7 +267,9 @@ def is_libvirtd_up():
     """
     cmd = ['systemctl', 'is-active', 'libvirtd.service']
     output, error, rc = run_command(cmd, silent=True)
-    return True if output == 'active\n' else False
+    cmd = ['service', 'libvirtd', 'status']
+    output_service, error_service, rc_service = run_command(cmd, silent=True)
+    return True if (output == 'active\n') or (rc_service == 0) else False
 
 
 def is_s390x():
