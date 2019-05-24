@@ -94,9 +94,8 @@ class TemplatesModel(object):
             raise InvalidParameter("KCHTMPL0002E", {'path': path})
 
         # create magic object to discover file type
-        file_type = magic.open(magic.MAGIC_NONE)
-        file_type.load()
-        ftype = file_type.file(path)
+        file_type = magic.Magic()
+        ftype = file_type.from_file(path)
 
         # cdrom
         if ISO_TYPE in ftype:
