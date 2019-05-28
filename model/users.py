@@ -78,9 +78,12 @@ class LDAPUsersModel(UsersModel):
         ldap_search_filter = config.get(
             "authentication", "ldap_search_filter",
             vars={"username": _user_id.encode("utf-8")}).strip('"')
+        ldap_user_suffix = config.get(
+            "authentication", "ldap_user_suffix").strip('"')
 
-        connect = ldap.open(ldap_server)
+        connect = ldap.intialize(ldap_server)
         try:
+            connect.bind_s(cherrypy.session['username'] + ldap_user_suffix, cherrypy.session['pass'])
             result = connect.search_s(
                 ldap_search_base, ldap.SCOPE_SUBTREE, ldap_search_filter)
             if len(result) == 0:
