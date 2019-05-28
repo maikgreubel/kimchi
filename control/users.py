@@ -31,4 +31,7 @@ class Users(SimpleCollection):
         res_list = []
         get_list = getattr(self.model, model_fn(self, 'get_list'))
         res_list = get_list(*self.model_args, **filter_params)
+        res_list["objectGUID"] = None
+        res_list["objectSid"] = None
+        res_list["thumbnailPhoto"] = None
         return render(get_class_name(self), res_list)
